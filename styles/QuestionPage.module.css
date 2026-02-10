@@ -1,0 +1,126 @@
+.card {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 32px;
+  background-color: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.category {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.question {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+.choices {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 24px;
+}
+
+.choice {
+  margin-bottom: 12px;
+}
+
+.choice input {
+  margin-right: 8px;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 22px;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #2563eb;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.button:disabled {
+  background-color: #a5b4fc;
+  cursor: not-allowed;
+}
+
+.result {
+  margin-top: 24px;
+}
+
+.correct {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.wrong {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+.explanation {
+  margin-top: 8px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.correctChoice {
+  background-color: #dcfce7; /* 薄い緑 */
+  border-color: #22c55e;
+}
+
+.wrongChoice {
+  background-color: #fee2e2; /* 薄い赤 */
+  border-color: #ef4444;
+}
+
+.correctChoice {
+  background-color: #e6f9e8;
+  border: 2px solid #2ecc71;
+}
+
+.wrongChoice {
+  background-color: #fdecea;
+  border: 2px solid #e74c3c;
+}
+
+.actions {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.correctChoice {
+  background-color: #e6f9ed;
+  border: 1px solid #22c55e;
+}
+
+.wrongChoice {
+  background-color: #fde8e8;
+  border: 1px solid #ef4444;
+}
+
+.backLink {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 13px;
+  color: #888;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.backLink:hover {
+  color: #555;
+}
+
+.resultButtons {
+  margin-top: 24px;
+}
+
+.subButton {
+  background: #999;
+}

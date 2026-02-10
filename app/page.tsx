@@ -1,95 +1,129 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+const categories = [
+  { label: "ネットワーク", value: "network" },
+  { label: "データベース", value: "database" },
+  { label: "セキュリティ", value: "security" },
+];
 
 export default function Home() {
+  const router = useRouter();
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [limit, setLimit] = useState<number>(5);
+
+  const startQuiz = () => {
+    if (!selectedCategory) return;
+    router.push(`/questions?category=${selectedCategory}&limit=${limit}`);
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "#f5f5f5",
+      }}
+    >
+      <div
+        style={{
+          background: "#fff",
+          padding: "32px",
+          borderRadius: "12px",
+          width: "340px",
+          textAlign: "center",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+        }}
+      >
+        <h1>基本情報対策アプリ</h1>
+        <p style={{ color: "#888", fontSize: "14px" }}>
+          分野と問題数を選択してください
         </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+
+        {/* 分野選択 */}
+        <div style={{ marginTop: "24px" }}>
+          {categories.map((c) => (
+            <button
+              key={c.value}
+              onClick={() => setSelectedCategory(c.value)}
+              style={{
+                width: "100%",
+                padding: "10px",
+                marginBottom: "8px",
+                borderRadius: "6px",
+                border: "1px solid #ccc",
+                background: selectedCategory === c.value ? "#0070f3" : "#fff",
+                color: selectedCategory === c.value ? "#fff" : "#000",
+                cursor: "pointer",
+              }}
+            >
+              {c.label}
+            </button>
+          ))}
         </div>
+
+        {/* 問題数選択 */}
+        <p style={{ marginTop: "16px", fontSize: "14px", color: "#888" }}>
+          挑戦する問題数
+        </p>
+
+        <div style={{ margin: "12px 0" }}>
+          {[3, 5, 10, 20].map((n) => (
+            <button
+              key={n}
+              onClick={() => setLimit(n)}
+              style={{
+                margin: "0 6px",
+                padding: "6px 12px",
+                borderRadius: "6px",
+                border: "1px solid #ccc",
+                background: limit === n ? "#22c55e" : "#fff",
+                color: limit === n ? "#fff" : "#000",
+                cursor: "pointer",
+              }}
+            >
+              {n}問
+            </button>
+          ))}
+        </div>
+
+        <button
+          onClick={startQuiz}
+          disabled={!selectedCategory}
+          style={{
+            width: "100%",
+            padding: "12px",
+            borderRadius: "6px",
+            border: "none",
+            background: selectedCategory ? "#22c55e" : "#ccc",
+            color: "#fff",
+            cursor: selectedCategory ? "pointer" : "not-allowed",
+            marginTop: "16px",
+          }}
+        >
+          問題開始 ▶︎
+        </button>
+
+        {/* 学習履歴ボタン（追加） */}
+        <button
+          onClick={() => router.push("/history")}
+          style={{
+            width: "100%",
+            padding: "10px",
+            marginTop: "16px",
+            borderRadius: "6px",
+            border: "1px solid #ccc",
+            background: "#fff",
+            cursor: "pointer",
+          }}
+        >
+          📊 学習履歴を見る
+        </button>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </div>
   );
 }
