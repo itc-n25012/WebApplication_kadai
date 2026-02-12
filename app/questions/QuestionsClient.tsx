@@ -54,6 +54,7 @@ export default function QuestionsPage() {
         endpoint: "questions",
         queries: {
           filters: `category[equals]${category}`,
+          limit: 100,
         },
       });
 
