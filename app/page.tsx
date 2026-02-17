@@ -108,7 +108,7 @@ export default function Home() {
           問題開始 ▶︎
         </button>
 
-        {/* 学習履歴ボタン（追加） */}
+        {/* 学習履歴ボタン */}
         <button
           onClick={() => router.push("/history")}
           style={{
@@ -122,6 +122,23 @@ export default function Home() {
           }}
         >
           📊 学習履歴を見る
+        </button>
+
+        {/* 🔥 追加：間違えた問題を復習 */}
+        <button
+          onClick={() => router.push("/review")}
+          style={{
+            width: "100%",
+            padding: "10px",
+            marginTop: "12px",
+            borderRadius: "6px",
+            border: "1px solid #f87171",
+            background: "#fff",
+            color: "#f87171",
+            cursor: "pointer",
+          }}
+        >
+          ❌ 間違えた問題を復習
         </button>
       </div>
     </div>

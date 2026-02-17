@@ -24,7 +24,7 @@ export default function QuestionsPage() {
   const [finished, setFinished] = useState(false);
   const [isReviewMode, setIsReviewMode] = useState(false);
 
-  // ✅ 学習履歴保存
+  // ===== 学習履歴保存 =====
   useEffect(() => {
     if (!finished) return;
     if (isReviewMode) return;
@@ -45,7 +45,8 @@ export default function QuestionsPage() {
 
     localStorage.setItem("studyHistory", JSON.stringify(history));
   }, [finished, category, correctCount, questions.length, isReviewMode]);
-  // ✅ 問題取得
+
+  // ===== 問題取得 =====
   useEffect(() => {
     if (!category) return;
 
@@ -70,14 +71,12 @@ export default function QuestionsPage() {
     return <p style={{ textAlign: "center" }}>読み込み中...</p>;
   }
 
-  // ===== 最終結果画面 =====
+  // ===== 結果画面 =====
   if (finished) {
-    // ===== 復習完了画面 =====
     if (isReviewMode) {
       return (
         <div className={styles.card}>
           <h2 className={styles.question}>復習完了 🎉</h2>
-
           <p style={{ textAlign: "center", fontSize: "16px" }}>
             間違えた問題の復習が完了しました！
           </p>
@@ -93,7 +92,6 @@ export default function QuestionsPage() {
       );
     }
 
-    // ===== 通常の結果画面 =====
     return (
       <div className={styles.card}>
         <h2 className={styles.question}>結果発表 🎉</h2>
@@ -115,7 +113,8 @@ export default function QuestionsPage() {
             <button
               className={styles.button}
               onClick={() => {
-                setQuestions(wrongQuestions);
+                const reviewList = [...wrongQuestions];
+                setQuestions(reviewList);
                 setWrongQuestions([]);
                 setCurrent(0);
                 setSelected(null);
@@ -142,6 +141,7 @@ export default function QuestionsPage() {
   }
 
   const question = questions[current];
+
   if (!question) {
     return <p style={{ textAlign: "center" }}>問題がありません</p>;
   }
@@ -154,7 +154,18 @@ export default function QuestionsPage() {
       setCorrectCount((prev) => prev + 1);
     } else {
       setWrongQuestions((prev) => [...prev, question]);
+
+      // localStorage保存
+      const stored = JSON.parse(localStorage.getItem("wrongQuestions") || "[]");
+
+      const alreadyExists = stored.some((q: Question) => q.id === question.id);
+
+      if (!alreadyExists) {
+        stored.push({ ...question, category });
+        localStorage.setItem("wrongQuestions", JSON.stringify(stored));
+      }
     }
+
     setShowAnswer(true);
   };
 

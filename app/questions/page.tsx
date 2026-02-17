@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import QuestionsClient from "./QuestionsClient";
 
-export const dynamic = "force-dynamic"; // ← これが超重要
+export const dynamic = "force-dynamic"; //
 
 export default function Page() {
   return (
